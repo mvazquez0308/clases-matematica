@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Clases particulares de matematica online para universidad, ensenanza media y basica. Candidato a Doctor en Modelamiento Matematico.">
+<meta name="description" content="Clases particulares de matematica online para universidad, ensenanza media y basica. Mas de 10 anos de experiencia. Candidato a Doctor en Modelamiento Matematico.">
 <meta property="og:title" content="Matematica con Mariano">
 <meta property="og:description" content="Clases particulares de matematica online para universidad, ensenanza media y basica.">
 <meta property="og:type" content="website">
@@ -18,15 +18,16 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;600&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap">
 <style>
   :root {
-    --paper: #FAFBFC;
+    --paper: #EDDFD2;
     --surface: #FFFFFF;
-    --grid: #DCE5EE;
-    --ink: #13202D;
-    --muted: #596A7A;
-    --line: #E0E7EF;
-    --accent: #1B3FA0;
+    --grid: #d2c9c1;
+    --ink: #000000;
+    --muted: #000000;
+    --line: #345cc0;
+    --accent: #345cc0;
     --accent-soft: #E9EFFB;
-    --red: #B8403A;
+    --red: #345cc0;
+    --rojo: #cf2121;
     --shadow: 0 1px 2px rgba(19, 32, 45, .05), 0 8px 24px -16px rgba(19, 32, 45, .35);
 
     --step-0: 1.0625rem;
@@ -34,34 +35,6 @@
     --step-2: 1.6rem;
     --step-3: 2.1rem;
     --step-4: clamp(2.4rem, 1.7rem + 3vw, 3.4rem);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --paper: #0D131A;
-      --surface: #151D26;
-      --grid: #1B2733;
-      --ink: #E9EEF4;
-      --muted: #94A4B2;
-      --line: #23303D;
-      --accent: #91B2FF;
-      --accent-soft: #17243A;
-      --red: #E28079;
-      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px -16px rgba(0, 0, 0, .8);
-    }
-  }
-
-  :root[data-theme="dark"] {
-    --paper: #0D131A;
-    --surface: #151D26;
-    --grid: #1B2733;
-    --ink: #E9EEF4;
-    --muted: #94A4B2;
-    --line: #23303D;
-    --accent: #91B2FF;
-    --accent-soft: #17243A;
-    --red: #E28079;
-    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px -16px rgba(0, 0, 0, .8);
   }
 
   * { box-sizing: border-box; }
@@ -189,6 +162,84 @@
     flex-wrap: wrap;
     gap: 12px;
     margin-top: 30px;
+  }
+
+  /* ---------- formación y experiencia ---------- */
+
+  .perfil {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 34px 46px;
+  }
+
+  .perfil-h {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: .74rem;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--accent);
+  }
+
+  .cv {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cv li {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .cv li:last-child { border-bottom: none; }
+
+  .cv-anio {
+    display: block;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: .7rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: .08em;
+    color: var(--muted);
+    margin-bottom: 5px;
+  }
+
+  .cv-titulo {
+    display: block;
+    font-family: Spectral, Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  .cv-inst {
+    display: block;
+    font-size: .95rem;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  .cv-detalle {
+    display: block;
+    font-size: .9rem;
+    color: var(--muted);
+    margin-top: 7px;
+    line-height: 1.5;
+  }
+
+  .cv-distincion {
+    display: inline-block;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: .66rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--rojo);
+    border: 1px solid currentColor;
+    border-radius: 2px;
+    padding: 1px 7px;
+    margin-top: 8px;
   }
 
   .btn {
@@ -460,23 +511,23 @@
     <p class="lede">Clases individuales y en grupo para universitarios, enseñanza media y básica; hechas a medida según tus necesidades y a tu propio ritmo. </p>
     <p class="credential">
       <strong>Mariano Vázquez</strong><br>
-      -Candidato a Doctor en Modelamiento Matemático<br>
-      -Magíster en Ingeniería Matemática <br>
-      -Ingeniero Civil Matemático 
+      Candidato a Doctor en Modelamiento Matemático<br>
+      Magíster en Ingeniería Matemática<br>
+      Ingeniero Civil Matemático
     </p>
 
     <!-- AFILIACIONES. Para mostrar un logo: guardá la imagen junto al index.html
          (por ejemplo logo-lorraine.png) y descomentá la línea <img> correspondiente. -->
     <div class="afiliaciones">
       <div class="afil">
-        <!-- <img class="afil-logo" src="logo-lorraine.png" alt="Université de Lorraine"> -->
+        <img class="afil-logo" src="logo-lorraine.png" alt="Université de Lorraine">
         <div>
           <span class="afil-nombre">Université de Lorraine</span>
           <span class="afil-lugar">Institut Elie Cartan de Lorraine, Metz, Francia</span>
         </div>
       </div>
       <div class="afil">
-        <!-- <img class="afil-logo" src="logo-uchile.png" alt="Universidad de Chile"> -->
+         <img class="afil-logo" src="logo-dim.png" alt="Universidad de Chile"> 
         <div>
           <span class="afil-nombre">Universidad de Chile</span>
           <span class="afil-lugar">Departamento de Ingeniería Matemática, Santiago</span>
@@ -498,7 +549,7 @@
   <section>
     <p class="eyebrow">Qué enseño</p>
     <h2>Clases para todos los niveles</h2>
-    <p class="section-note">Preparación para evaluaciones y examanes. Acompañamiento durante el semestre. Todo personalizado según el temario de tu curso o evaluación.  </p>
+    <p class="section-note">Preparación para evaluaciones y exámenes. Acompañamiento durante el semestre. Todo personalizado según el temario de tu curso o evaluación.</p>
 
     <div class="materias">
       <article class="materia">
@@ -550,6 +601,66 @@
           <li>Resolución de problemas</li>
         </ul>
       </article>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Sobre mi</p>
+    <h2>Formación y experiencia</h2>
+    <p class="section-note">Más de diez años haciendo clases particulares, además de ayudantías y auxiliares en tres universidades y preparación PAES en preuniversitarios. Toda mi formación es en el Departamento de Ingeniería Matemática de la Universidad de Chile.</p>
+
+    <div class="perfil">
+
+      <div>
+        <h3 class="perfil-h">Experiencia haciendo clases</h3>
+        <ul class="cv">
+          <li>
+            <span class="cv-anio">MÁS DE 10 AÑOS</span>
+            <span class="cv-titulo">Clases particulares de matemática</span>
+            <span class="cv-inst">Alumnos de universidad, enseñanza media y básica.</span>
+          </li>
+          <li>
+            <span class="cv-anio">2021 — 2025</span>
+            <span class="cv-titulo">Ayudantías y auxiliares</span>
+            <span class="cv-inst">Universidad de Chile</span>
+            <span class="cv-detalle">Introducción al cálculo, Cálculo diferencial e integral, Cálculo avanzado y aplicaciones, Álgebra lineal, Cálculo diferencial variacional, Optimización no lineal y Teoría de la medida.</span>
+          </li>
+          <li>
+            <span class="cv-anio">2020 — 2022</span>
+            <span class="cv-titulo">Ayudantías y auxiliares</span>
+            <span class="cv-inst">Universidad de O'Higgins · Universidad de Aysén</span>
+            <span class="cv-detalle">Probabilidad y estadística, Álgebra elemental y Cálculo diferencial e integral.</span>
+          </li>
+          <li>
+            <span class="cv-titulo">Preparación PAES</span>
+            <span class="cv-inst">Experiencia como profesor en preuniversitarios.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="perfil-h">Formación</h3>
+        <ul class="cv">
+          <li>
+            <span class="cv-anio">2024 — HOY · TERCER AÑO</span>
+            <span class="cv-titulo">Doctorado en Ciencias de la Ingeniería, mención Modelación Matemática</span>
+            <span class="cv-inst">Universidad de Chile · Université de Lorraine</span>
+          </li>
+          <li>
+            <span class="cv-anio">2022 — 2023</span>
+            <span class="cv-titulo">Magíster en Ciencias de la Ingeniería, mención Matemática Aplicada</span>
+            <span class="cv-inst">Universidad de Chile</span>
+            <span class="cv-distincion">Distinción máxima</span>
+          </li>
+          <li>
+            <span class="cv-anio">2016 — 2023</span>
+            <span class="cv-titulo">Ingeniero Civil Matemático</span>
+            <span class="cv-inst">Universidad de Chile</span>
+            <span class="cv-distincion">Distinción máxima</span>
+          </li>
+        </ul>
+      </div>
+
     </div>
   </section>
 
@@ -618,8 +729,8 @@
     <h2>De la consulta a la clase</h2>
     <ol class="pasos">
       <li>
-        <h3>Me contás qué necesitás</h3>
-        <p>Ramo o curso, qué tema te está costando y para cuándo es la prueba.</p>
+        <h3>¿Qué necesitas?</h3>
+        <p>Me cuentas cual es la materia en cuestión y tus objetivos.</p>
       </li>
       <li>
         <h3>Agendamos el horario</h3>
@@ -627,18 +738,22 @@
       </li>
       <li>
         <h3>Clase por videollamada</h3>
-        <p>Con pizarra digital compartida, trabajando sobre tus guías y ejercicios.</p>
+        <p>Con pizarra digital compartida.</p>
       </li>
       <li>
         <h3>Te quedan los apuntes</h3>
-        <p>Al terminar te mando la pizarra de la clase y ejercicios para practicar.</p>
+        <p>Al terminar te mando la pizarra de la clase, ejercicios para practicar y material teórico.</p>
+      </li>
+            <li>
+        <h3>Acompañamiento</h3>
+        <p>Seguimiento de tu estudio vía WhatsApp.</p>
       </li>
     </ol>
   </section>
 
   <section class="cierre">
     <h2>¿Empezamos?</h2>
-    <p>Escribime con el tema y la fecha de tu prueba y te respondo con los horarios disponibles.</p>
+    <p>Escríbeme con el tema y la fecha de tu prueba y te respondo con los horarios disponibles.</p>
     <div class="actions">
       <a class="btn btn-primary" href="https://wa.me/56965284437?text=Hola%20Mariano%2C%20quiero%20consultar%20por%20clases%20particulares%20de%20matem%C3%A1tica." target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.83-.85 2.03s.87 2.35.99 2.51c.12.16 1.71 2.61 4.15 3.66.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
