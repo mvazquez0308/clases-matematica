@@ -895,17 +895,13 @@
 </style>
 
 <section>
+  <p class="eyebrow">Reservar</p>
   <h2>Reserva de clase grupal</h2>
   <p class="section-note">Una hora de clase para grupos de 2 o más, en videollamada. El precio es por persona y baja según cuántos sean. Reserva solo uno por el grupo y comparte después el enlace con los demás.</p>
 
   <div class="reserva-caja">
-    <div id="cal-inline"></div>
+    <div id="cal-grupal"></div>
   </div>
-
-  <p class="reserva-alt">
-    <span>¿No encuentras un horario que te sirva?</span>
-    <a href="https://wa.me/56965284437?text=Hola%20Mariano%2C%20quiero%20coordinar%20un%20horario%20para%20una%20clase." target="_blank" rel="noopener">Escríbeme por WhatsApp y lo coordinamos</a>
-  </p>
 
   <noscript>
     <p class="reserva-alt">
@@ -915,33 +911,15 @@
 </section>
 
 <script type="text/javascript">
-  (function (C, A, L) {
-    let p = function (a, ar) { a.q.push(ar); };
-    let d = C.document;
-    C.Cal = C.Cal || function () {
-      let cal = C.Cal; let ar = arguments;
-      if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; }
-      if (ar[0] === L) {
-        const api = function () { p(api, arguments); };
-        const namespace = ar[1];
-        api.q = api.q || [];
-        if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); }
-        else p(cal, ar);
-        return;
-      }
-      p(cal, ar);
-    };
-  })(window, "https://app.cal.com/embed/embed.js", "init");
+  Cal("init", "grupal", { origin: "https://app.cal.com" });
 
-  Cal("init", "clase", { origin: "https://app.cal.com" });
-
-  Cal.ns.clase("inline", {
-    elementOrSelector: "#cal-inline",
+  Cal.ns.grupal("inline", {
+    elementOrSelector: "#cal-grupal",
     calLink: "mariano-vazquez-9d6qpa/clase-grupal",
     config: { layout: "month_view", theme: "light" }
   });
 
-  Cal.ns.clase("ui", {
+  Cal.ns.grupal("ui", {
     hideEventTypeDetails: false,
     layout: "month_view",
     cssVarsPerTheme: { light: { "cal-brand": "#345CC0" } }
