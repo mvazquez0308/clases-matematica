@@ -797,10 +797,9 @@
   }
 </style>
 
-
+<section>
   <p class="eyebrow">Reservar</p>
-  <subsection>
-  <h2>Agenda tu clase</h2>
+  <h2>Reserva de clase individual</h2>
   <p class="section-note">Elige el día y la hora que te acomode. El calendario muestra los horarios en la hora de tu ciudad y solo aparecen los bloques que tengo libres. Al reservar te llega la confirmación y el enlace de la videollamada por correo.</p>
 
   <div class="reserva-caja">
@@ -848,6 +847,107 @@
   });
 </script>
 
+<!-- ============================================================
+     SECCIÓN "RESERVAR CLASE"
+     Pegá TODO este bloque dentro de <div class="wrap">, justo
+     ANTES de la línea:   <section class="cierre">
+
+     Antes de subirlo, reemplazá las DOS apariciones de
+     TU-USUARIO/clase-1-hora  por tu link real de Cal.com
+     (lo ves en Cal.com > Event Types, debajo del nombre del evento).
+     ============================================================ -->
+
+<style>
+  .reserva-caja {
+    background: var(--surface, #fff);
+    border: 1px solid var(--line, #345cc0);
+    border-radius: 6px;
+    padding: 10px;
+    overflow: hidden;
+  }
+
+  #cal-inline {
+    width: 100%;
+    min-height: 640px;
+    overflow: auto;
+  }
+
+  .reserva-alt {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 16px;
+    margin-top: 18px;
+    font-size: .95rem;
+    color: var(--muted, #596a7a);
+  }
+
+  .reserva-alt a {
+    color: var(--accent, #345cc0);
+    font-weight: 600;
+    text-underline-offset: 3px;
+  }
+
+  @media (max-width: 640px) {
+    #cal-inline { min-height: 560px; }
+    .reserva-caja { padding: 4px; }
+  }
+</style>
+
+<section>
+  <h2>Reserva de clase grupal</h2>
+  <p class="section-note">Una hora de clase para grupos de 2 o más, en videollamada. El precio es por persona y baja según cuántos sean. Reserva solo uno por el grupo y comparte después el enlace con los demás.</p>
+
+  <div class="reserva-caja">
+    <div id="cal-inline"></div>
+  </div>
+
+  <p class="reserva-alt">
+    <span>¿No encuentras un horario que te sirva?</span>
+    <a href="https://wa.me/56965284437?text=Hola%20Mariano%2C%20quiero%20coordinar%20un%20horario%20para%20una%20clase." target="_blank" rel="noopener">Escríbeme por WhatsApp y lo coordinamos</a>
+  </p>
+
+  <noscript>
+    <p class="reserva-alt">
+      <a href="https://cal.com/mariano-vazquez-9d6qpa/clase-grupal" target="_blank" rel="noopener">Abrir el calendario de reservas</a>
+    </p>
+  </noscript>
+</section>
+
+<script type="text/javascript">
+  (function (C, A, L) {
+    let p = function (a, ar) { a.q.push(ar); };
+    let d = C.document;
+    C.Cal = C.Cal || function () {
+      let cal = C.Cal; let ar = arguments;
+      if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; }
+      if (ar[0] === L) {
+        const api = function () { p(api, arguments); };
+        const namespace = ar[1];
+        api.q = api.q || [];
+        if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); }
+        else p(cal, ar);
+        return;
+      }
+      p(cal, ar);
+    };
+  })(window, "https://app.cal.com/embed/embed.js", "init");
+
+  Cal("init", "clase", { origin: "https://app.cal.com" });
+
+  Cal.ns.clase("inline", {
+    elementOrSelector: "#cal-inline",
+    calLink: "mariano-vazquez-9d6qpa/clase-grupal",
+    config: { layout: "month_view", theme: "light" }
+  });
+
+  Cal.ns.clase("ui", {
+    hideEventTypeDetails: false,
+    layout: "month_view",
+    cssVarsPerTheme: { light: { "cal-brand": "#345CC0" } }
+  });
+</script>
+  
   <section class="cierre">
     <h2>¿No encuentras un horario que te sirva?</h2>
     <p>Escríbeme con el tema y la fecha de tu evaluación y coordinamos.</p>
