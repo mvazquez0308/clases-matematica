@@ -54,6 +54,7 @@
   }
 
   .wrap {
+    position: relative;
     max-width: 940px;
     margin: 0 auto;
     padding-inline: 20px;
@@ -79,6 +80,42 @@
     text-transform: uppercase;
     color: var(--muted);
     margin: 0 0 14px;
+  }
+
+  /* ---------- selector de idioma ---------- */
+
+  .lang-switch {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    display: inline-flex;
+    border: 1.5px solid var(--accent);
+    border-radius: 3px;
+    overflow: hidden;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: .72rem;
+    letter-spacing: .1em;
+  }
+
+  .lang-switch button {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: var(--accent);
+    font: inherit;
+    padding: 6px 11px;
+    cursor: pointer;
+    line-height: 1.4;
+  }
+
+  .lang-switch button[aria-pressed="true"] {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .lang-switch button:focus-visible {
+    outline: 2px solid var(--rojo);
+    outline-offset: -3px;
   }
 
   /* ---------- hero ---------- */
@@ -333,6 +370,15 @@
 
   /* ---------- precios ---------- */
 
+  .moneda-nota {
+    font-size: .92rem;
+    color: var(--muted);
+    border-left: 2px solid var(--accent);
+    padding-left: 12px;
+    margin: -14px 0 26px;
+    max-width: 62ch;
+  }
+
   .precios {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -382,6 +428,23 @@
     color: var(--muted);
   }
 
+  /* precio equivalente en la otra moneda */
+  .precio-alt {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: .82rem;
+    color: var(--muted);
+    opacity: .6;
+    margin-top: 3px;
+  }
+
+  .fila .v .alt {
+    display: block;
+    font-size: .78rem;
+    opacity: .6;
+    margin-top: 1px;
+  }
+
   .filas {
     margin: 18px 0 0;
     border-top: 1px solid var(--line);
@@ -405,6 +468,7 @@
     font-family: "IBM Plex Mono", ui-monospace, monospace;
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
+    text-align: right;
   }
 
   .fila.primera .v { color: var(--red); }
@@ -460,6 +524,38 @@
 
   .pasos p { color: var(--muted); font-size: .95rem; }
 
+  /* ---------- reservas ---------- */
+
+  .reserva-caja {
+    background: var(--surface, #fff);
+    border: 1px solid var(--line, #345cc0);
+    border-radius: 6px;
+    padding: 10px;
+    overflow: hidden;
+  }
+
+  .cal-caja {
+    width: 100%;
+    min-height: 640px;
+    overflow: auto;
+  }
+
+  .reserva-alt {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 16px;
+    margin-top: 18px;
+    font-size: .95rem;
+    color: var(--muted);
+  }
+
+  .reserva-alt a {
+    color: var(--accent);
+    font-weight: 600;
+    text-underline-offset: 3px;
+  }
+
   /* ---------- cierre ---------- */
 
   .cierre {
@@ -495,6 +591,9 @@
     .materia { grid-template-columns: 1fr; gap: 12px; }
     .hero { padding-left: 16px; }
     .cierre { padding: 26px 20px; }
+    .cal-caja { min-height: 560px; }
+    .reserva-caja { padding: 4px; }
+    .wrap { padding-block: 76px 72px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -505,41 +604,72 @@
 <body>
 <div class="wrap">
 
+  <!-- Selector de idioma. La traducción vive en los atributos data-es / data-en
+       de cada elemento, y el script del final los intercambia. -->
+  <div class="lang-switch" role="group" aria-label="Idioma / Language">
+    <button type="button" data-lang="es" aria-pressed="true">ES</button>
+    <button type="button" data-lang="en" aria-pressed="false">EN</button>
+  </div>
+
   <header class="hero">
-    <p class="eyebrow">Clases particulares · Online</p>
-    <h1>Matemática <em>a tu medida</em></h1>
-    <p class="lede">Clases individuales y en grupo para universitarios, enseñanza media y básica; hechas a medida según tus necesidades y a tu propio ritmo. </p>
-    <p class="credential">
+    <p class="eyebrow"
+       data-es="Clases particulares · Online"
+       data-en="Private tutoring · Online">Clases particulares · Online</p>
+
+    <h1 data-es="Matemática <em>a tu medida</em>"
+        data-en="Maths <em>tailored to you</em>">Matemática <em>a tu medida</em></h1>
+
+    <p class="lede"
+       data-es="Clases individuales y en grupo para universitarios, enseñanza media y básica; hechas a medida según tus necesidades y a tu propio ritmo."
+       data-en="One-to-one and small-group classes for university, high school and primary school students, built around what you need and at your own pace.">Clases individuales y en grupo para universitarios, enseñanza media y básica; hechas a medida según tus necesidades y a tu propio ritmo.</p>
+
+    <p class="credential"
+       data-es="<strong>Mariano Vázquez</strong><br>Candidato a Doctor en Modelamiento Matemático<br>Magíster en Ingeniería Matemática<br>Ingeniero Civil Matemático"
+       data-en="<strong>Mariano Vázquez</strong><br>PhD Candidate in Mathematical Modelling<br>MSc in Applied Mathematics<br>Mathematical Engineer">
       <strong>Mariano Vázquez</strong><br>
       Candidato a Doctor en Modelamiento Matemático<br>
       Magíster en Ingeniería Matemática<br>
       Ingeniero Civil Matemático
     </p>
 
-    <!-- AFILIACIONES. Para mostrar un logo: guardá la imagen junto al index.html
-         (por ejemplo logo-lorraine.png) y descomentá la línea <img> correspondiente. -->
     <div class="afiliaciones">
       <div class="afil">
         <img class="afil-logo" src="logo-lorraine.png" alt="Université de Lorraine">
         <div>
           <span class="afil-nombre">Université de Lorraine</span>
-          <span class="afil-lugar">Institut Elie Cartan de Lorraine, Metz, Francia</span>
+          <span class="afil-lugar"
+                data-es="Institut Élie Cartan de Lorraine, Metz, Francia"
+                data-en="Institut Élie Cartan de Lorraine, Metz, France">Institut Élie Cartan de Lorraine, Metz, Francia</span>
         </div>
       </div>
       <div class="afil">
-         <img class="afil-logo" src="logo-dim.png" alt="Universidad de Chile"> 
+        <img class="afil-logo" src="logo-dim.png" alt="Universidad de Chile">
         <div>
           <span class="afil-nombre">Universidad de Chile</span>
-          <span class="afil-lugar">Departamento de Ingeniería Matemática, Santiago</span>
+          <span class="afil-lugar"
+                data-es="Departamento de Ingeniería Matemática, Santiago"
+                data-en="Department of Mathematical Engineering, Santiago">Departamento de Ingeniería Matemática, Santiago</span>
         </div>
       </div>
     </div>
+
     <div class="actions">
-      <a class="btn btn-primary" href="https://wa.me/56965284437?text=Hola%20Mariano%2C%20quiero%20consultar%20por%20clases%20particulares%20de%20matem%C3%A1tica." target="_blank" rel="noopener">
+      <a class="btn btn-primary" target="_blank" rel="noopener"
+         href="https://wa.me/56965284437?text=Hola%20Mariano%2C%20quiero%20consultar%20por%20clases%20particulares%20de%20matem%C3%A1tica."
+         data-href-es="https://wa.me/56965284437?text=Hola%20Mariano%2C%20quiero%20consultar%20por%20clases%20particulares%20de%20matem%C3%A1tica."
+         data-href-en="https://wa.me/56965284437?text=Hi%20Mariano%2C%20I%27d%20like%20to%20ask%20about%20private%20maths%20lessons."
+         data-es="<svg viewBox=&quot;0 0 24 24&quot; aria-hidden=&quot;true&quot;><path d=&quot;M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.83-.85 2.03s.87 2.35.99 2.51c.12.16 1.71 2.61 4.15 3.66.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z&quot;/></svg> Escríbeme por WhatsApp"
+         data-en="<svg viewBox=&quot;0 0 24 24&quot; aria-hidden=&quot;true&quot;><path d=&quot;M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.83-.85 2.03s.87 2.35.99 2.51c.12.16 1.71 2.61 4.15 3.66.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z&quot;/></svg> Message me on WhatsApp">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.83-.85 2.03s.87 2.35.99 2.51c.12.16 1.71 2.61 4.15 3.66.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
         Escríbeme por WhatsApp
       </a>
-      <a class="btn btn-ghost" href="mailto:marianovazquezg3@gmail.com?subject=Consulta%20por%20clases%20particulares">
+
+      <a class="btn btn-ghost"
+         href="mailto:marianovazquezg3@gmail.com?subject=Consulta%20por%20clases%20particulares"
+         data-href-es="mailto:marianovazquezg3@gmail.com?subject=Consulta%20por%20clases%20particulares"
+         data-href-en="mailto:marianovazquezg3@gmail.com?subject=Private%20maths%20lessons"
+         data-es="<svg viewBox=&quot;0 0 24 24&quot; aria-hidden=&quot;true&quot;><path d=&quot;M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm1.6 2L12 12.3 19.4 7H4.6ZM20 8.5l-7.4 5.3a1 1 0 0 1-1.2 0L4 8.5V17h16V8.5Z&quot;/></svg> Mándame un mail"
+         data-en="<svg viewBox=&quot;0 0 24 24&quot; aria-hidden=&quot;true&quot;><path d=&quot;M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm1.6 2L12 12.3 19.4 7H4.6ZM20 8.5l-7.4 5.3a1 1 0 0 1-1.2 0L4 8.5V17h16V8.5Z&quot;/></svg> Send me an email">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm1.6 2L12 12.3 19.4 7H4.6ZM20 8.5l-7.4 5.3a1 1 0 0 1-1.2 0L4 8.5V17h16V8.5Z"/></svg>
         Mándame un mail
       </a>
@@ -547,116 +677,130 @@
   </header>
 
   <section>
-    <p class="eyebrow">Qué enseño</p>
-    <h2>Clases para todos los niveles</h2>
-    <p class="section-note">Preparación para evaluaciones y exámenes. Acompañamiento durante el semestre. Todo personalizado según el temario de tu curso o evaluación.</p>
+    <p class="eyebrow" data-es="Qué enseño" data-en="What I teach">Qué enseño</p>
+    <h2 data-es="Clases para todos los niveles" data-en="Classes at every level">Clases para todos los niveles</h2>
+    <p class="section-note"
+       data-es="Preparación para evaluaciones y exámenes. Acompañamiento durante el semestre. Todo personalizado según el temario de tu curso o evaluación."
+       data-en="Preparation for tests and exams, and support throughout the semester. Everything built around the syllabus of your own course.">Preparación para evaluaciones y exámenes. Acompañamiento durante el semestre. Todo personalizado según el temario de tu curso o evaluación.</p>
 
     <div class="materias">
       <article class="materia">
         <div>
-          <h3>Universidad</h3>
-          <p class="nivel-meta">Ingeniería · Ciencias</p>
+          <h3 data-es="Universidad" data-en="University">Universidad</h3>
+          <p class="nivel-meta" data-es="Ingeniería · Ciencias" data-en="Engineering · Science">Ingeniería · Ciencias</p>
         </div>
         <ul class="temas">
-          <li>Nivelaciones</li>
-          <li>Introducción al Cálculo</li>
-          <li>Cálculo Diferencial e Integral</li>
-          <li>Cálculo en Varias Variables</li>
-          <li>Cálculo Avanzado</li>
-          <li>Introducción al Álgebra</li>
-          <li>Álgebra lineal</li>
-          <li>Ecuaciones diferenciales</li>
-          <li>Probabilidades y estadística</li>
-          <li>Optimización</li>
-          <li>Análisis real</li>
-          <li>Teoría de la Medida</li>
-          <li>Cursos de especialidad</li>
+          <li data-es="Nivelaciones" data-en="Bridging courses">Nivelaciones</li>
+          <li data-es="Introducción al Cálculo" data-en="Introduction to Calculus">Introducción al Cálculo</li>
+          <li data-es="Cálculo Diferencial e Integral" data-en="Differential and Integral Calculus">Cálculo Diferencial e Integral</li>
+          <li data-es="Cálculo en Varias Variables" data-en="Multivariable Calculus">Cálculo en Varias Variables</li>
+          <li data-es="Cálculo Avanzado" data-en="Advanced Calculus">Cálculo Avanzado</li>
+          <li data-es="Introducción al Álgebra" data-en="Introduction to Algebra">Introducción al Álgebra</li>
+          <li data-es="Álgebra lineal" data-en="Linear Algebra">Álgebra lineal</li>
+          <li data-es="Ecuaciones diferenciales" data-en="Differential Equations">Ecuaciones diferenciales</li>
+          <li data-es="Probabilidades y estadística" data-en="Probability and Statistics">Probabilidades y estadística</li>
+          <li data-es="Optimización" data-en="Optimisation">Optimización</li>
+          <li data-es="Análisis real" data-en="Real Analysis">Análisis real</li>
+          <li data-es="Teoría de la Medida" data-en="Measure Theory">Teoría de la Medida</li>
+          <li data-es="Cursos de especialidad" data-en="Specialised courses">Cursos de especialidad</li>
         </ul>
       </article>
 
       <article class="materia">
         <div>
-          <h3>Enseñanza media</h3>
-          <p class="nivel-meta">1º a 4º medio · PAES M1 y M2</p>
+          <h3 data-es="Enseñanza media" data-en="High school">Enseñanza media</h3>
+          <p class="nivel-meta" data-es="1º a 4º medio · PAES M1 y M2" data-en="Ages 14 to 18 · PAES M1 and M2">1º a 4º medio · PAES M1 y M2</p>
         </div>
         <ul class="temas">
-          <li>Álgebra y funciones</li>
-          <li>Geometría</li>
-          <li>Probabilidad y datos</li>
-          <li>Preparación PAES</li>
-          <li>Preparación de pruebas y globales</li>
+          <li data-es="Álgebra y funciones" data-en="Algebra and functions">Álgebra y funciones</li>
+          <li data-es="Geometría" data-en="Geometry">Geometría</li>
+          <li data-es="Probabilidad y datos" data-en="Probability and data">Probabilidad y datos</li>
+          <li data-es="Preparación PAES" data-en="PAES preparation">Preparación PAES</li>
+          <li data-es="Preparación de pruebas y globales" data-en="Test and final exam preparation">Preparación de pruebas y globales</li>
         </ul>
       </article>
 
       <article class="materia">
         <div>
-          <h3>Enseñanza básica</h3>
-          <p class="nivel-meta">Apoyo y refuerzo escolar</p>
+          <h3 data-es="Enseñanza básica" data-en="Primary school">Enseñanza básica</h3>
+          <p class="nivel-meta" data-es="Apoyo y refuerzo escolar" data-en="Support and catch-up">Apoyo y refuerzo escolar</p>
         </div>
         <ul class="temas">
-          <li>Operatoria</li>
-          <li>Fracciones y decimales</li>
-          <li>Proporciones y porcentajes</li>
-          <li>Introducción al álgebra</li>
-          <li>Resolución de problemas</li>
+          <li data-es="Operatoria" data-en="Arithmetic">Operatoria</li>
+          <li data-es="Fracciones y decimales" data-en="Fractions and decimals">Fracciones y decimales</li>
+          <li data-es="Proporciones y porcentajes" data-en="Ratios and percentages">Proporciones y porcentajes</li>
+          <li data-es="Introducción al álgebra" data-en="Introduction to algebra">Introducción al álgebra</li>
+          <li data-es="Resolución de problemas" data-en="Problem solving">Resolución de problemas</li>
         </ul>
       </article>
     </div>
   </section>
 
   <section>
-    <p class="eyebrow">Sobre mi</p>
-    <h2>Formación y experiencia</h2>
-    <p class="section-note">Más de diez años haciendo clases particulares, además de ayudantías y auxiliares en tres universidades y preparación PAES en preuniversitarios. Toda mi formación es en el Departamento de Ingeniería Matemática de la Universidad de Chile.</p>
+    <p class="eyebrow" data-es="Sobre mi" data-en="About me">Sobre mi</p>
+    <h2 data-es="Formación y experiencia" data-en="Background and experience">Formación y experiencia</h2>
+    <p class="section-note"
+       data-es="Más de diez años haciendo clases particulares, además de ayudantías y auxiliares en tres universidades y preparación PAES en preuniversitarios. Toda mi formación es en el Departamento de Ingeniería Matemática de la Universidad de Chile."
+       data-en="Over ten years of private tutoring, plus teaching assistant work at three universities and PAES preparation at university-entrance prep schools. All my degrees are from the Department of Mathematical Engineering at Universidad de Chile.">Más de diez años haciendo clases particulares, además de ayudantías y auxiliares en tres universidades y preparación PAES en preuniversitarios. Toda mi formación es en el Departamento de Ingeniería Matemática de la Universidad de Chile.</p>
 
     <div class="perfil">
 
       <div>
-        <h3 class="perfil-h">Experiencia haciendo clases</h3>
+        <h3 class="perfil-h" data-es="Experiencia haciendo clases" data-en="Teaching experience">Experiencia haciendo clases</h3>
         <ul class="cv">
           <li>
-            <span class="cv-anio">MÁS DE 10 AÑOS</span>
-            <span class="cv-titulo">Clases particulares de matemática</span>
-            <span class="cv-inst">Alumnos de universidad, enseñanza media y básica.</span>
+            <span class="cv-anio" data-es="MÁS DE 10 AÑOS" data-en="OVER 10 YEARS">MÁS DE 10 AÑOS</span>
+            <span class="cv-titulo" data-es="Clases particulares de matemática" data-en="Private maths tutoring">Clases particulares de matemática</span>
+            <span class="cv-inst" data-es="Alumnos de universidad, enseñanza media y básica." data-en="University, high school and primary school students.">Alumnos de universidad, enseñanza media y básica.</span>
           </li>
           <li>
             <span class="cv-anio">2021 — 2025</span>
-            <span class="cv-titulo">Ayudantías y auxiliares</span>
+            <span class="cv-titulo" data-es="Ayudantías y auxiliares" data-en="Teaching assistant">Ayudantías y auxiliares</span>
             <span class="cv-inst">Universidad de Chile</span>
-            <span class="cv-detalle">Introducción al cálculo, Cálculo diferencial e integral, Cálculo avanzado y aplicaciones, Álgebra lineal, Cálculo diferencial variacional, Optimización no lineal y Teoría de la medida.</span>
+            <span class="cv-detalle"
+                  data-es="Introducción al cálculo, Cálculo diferencial e integral, Cálculo avanzado y aplicaciones, Álgebra lineal, Cálculo diferencial variacional, Optimización no lineal y Teoría de la medida."
+                  data-en="Introduction to Calculus, Differential and Integral Calculus, Advanced Calculus and Applications, Linear Algebra, Variational Calculus, Nonlinear Optimisation and Measure Theory.">Introducción al cálculo, Cálculo diferencial e integral, Cálculo avanzado y aplicaciones, Álgebra lineal, Cálculo diferencial variacional, Optimización no lineal y Teoría de la medida.</span>
           </li>
           <li>
             <span class="cv-anio">2020 — 2022</span>
-            <span class="cv-titulo">Ayudantías y auxiliares</span>
+            <span class="cv-titulo" data-es="Ayudantías y auxiliares" data-en="Teaching assistant">Ayudantías y auxiliares</span>
             <span class="cv-inst">Universidad de O'Higgins · Universidad de Aysén</span>
-            <span class="cv-detalle">Probabilidad y estadística, Álgebra elemental y Cálculo diferencial e integral.</span>
+            <span class="cv-detalle"
+                  data-es="Probabilidad y estadística, Álgebra elemental y Cálculo diferencial e integral."
+                  data-en="Probability and Statistics, Elementary Algebra and Differential and Integral Calculus.">Probabilidad y estadística, Álgebra elemental y Cálculo diferencial e integral.</span>
           </li>
           <li>
-            <span class="cv-titulo">Preparación PAES</span>
-            <span class="cv-inst">Experiencia como profesor en preuniversitarios.</span>
+            <span class="cv-titulo" data-es="Preparación PAES" data-en="PAES preparation">Preparación PAES</span>
+            <span class="cv-inst"
+                  data-es="Experiencia como profesor en preuniversitarios."
+                  data-en="Experience teaching at university-entrance prep schools.">Experiencia como profesor en preuniversitarios.</span>
           </li>
         </ul>
       </div>
 
       <div>
-        <h3 class="perfil-h">Formación</h3>
+        <h3 class="perfil-h" data-es="Formación" data-en="Education">Formación</h3>
         <ul class="cv">
           <li>
-            <span class="cv-anio">TERCER AÑO</span>
-            <span class="cv-titulo">Doctorado en Ciencias de la Ingeniería, mención Modelación Matemática</span>
+            <span class="cv-anio" data-es="TERCER AÑO" data-en="THIRD YEAR">TERCER AÑO</span>
+            <span class="cv-titulo"
+                  data-es="Doctorado en Ciencias de la Ingeniería, mención Modelación Matemática"
+                  data-en="PhD in Engineering Sciences, Mathematical Modelling">Doctorado en Ciencias de la Ingeniería, mención Modelación Matemática</span>
             <span class="cv-inst">Universidad de Chile · Université de Lorraine</span>
           </li>
           <li>
             <span class="cv-anio">2023</span>
-            <span class="cv-titulo">Magíster en Ciencias de la Ingeniería, mención Matemática Aplicada</span>
+            <span class="cv-titulo"
+                  data-es="Magíster en Ciencias de la Ingeniería, mención Matemática Aplicada"
+                  data-en="MSc in Engineering Sciences, Applied Mathematics">Magíster en Ciencias de la Ingeniería, mención Matemática Aplicada</span>
             <span class="cv-inst">Universidad de Chile</span>
-            <span class="cv-distincion">Distinción máxima</span>
+            <span class="cv-distincion" data-es="Distinción máxima" data-en="Highest distinction">Distinción máxima</span>
           </li>
           <li>
             <span class="cv-anio">2023</span>
-            <span class="cv-titulo">Ingeniero Civil Matemático</span>
+            <span class="cv-titulo" data-es="Ingeniero Civil Matemático" data-en="Mathematical Engineer">Ingeniero Civil Matemático</span>
             <span class="cv-inst">Universidad de Chile</span>
-            <span class="cv-distincion">Distinción máxima</span>
+            <span class="cv-distincion" data-es="Distinción máxima" data-en="Highest distinction">Distinción máxima</span>
           </li>
         </ul>
       </div>
@@ -665,154 +809,234 @@
   </section>
 
   <section>
-    <p class="eyebrow">Precios</p>
-    <h2>Valores por hora de clase</h2>
-    <p class="section-note">La primera clase va a mitad de precio: revisamos tu temario, vemos cómo estás parado y creamos estrategias para tu tipo de aprendizaje, poniéndolos en práctica desde el primer momento.</p>
+    <p class="eyebrow" data-es="Precios" data-en="Pricing">Precios</p>
+    <h2 data-es="Valores por hora de clase" data-en="Price per class hour">Valores por hora de clase</h2>
+    <p class="section-note"
+       data-es="La primera clase va a mitad de precio: revisamos tu temario, vemos cómo estás parado y creamos estrategias para tu tipo de aprendizaje, poniéndolos en práctica desde el primer momento."
+       data-en="The first class is half price: we go through your syllabus, see where you stand and work out strategies that fit how you learn, putting them into practice from minute one.">La primera clase va a mitad de precio: revisamos tu temario, vemos cómo estás parado y creamos estrategias para tu tipo de aprendizaje, poniéndolos en práctica desde el primer momento.</p>
+
+    <p class="moneda-nota"
+       data-es="<strong>En Chile se paga en pesos chilenos.</strong> Debajo de cada valor está el equivalente en euros, para alumnos que están fuera de Chile."
+       data-en="<strong>Prices in euros are for students outside Chile.</strong> Below each one is the equivalent in Chilean pesos, which is what applies within Chile."><strong>En Chile se paga en pesos chilenos.</strong> Debajo de cada valor está el equivalente en euros, para alumnos que están fuera de Chile.</p>
 
     <div class="precios">
 
       <article class="plan destacado">
-        <h3>Universidad</h3>
-        <p class="sub">Individual, por hora</p>
-        <p class="precio-hora">$20.000 <span>CLP</span></p>
+        <h3 data-es="Universidad" data-en="University">Universidad</h3>
+        <p class="sub" data-es="Individual, por hora" data-en="One-to-one, per hour">Individual, por hora</p>
+        <p class="precio-hora"
+           data-es="$20.000 <span>CLP</span>"
+           data-en="€20 <span>EUR</span>">$20.000 <span>CLP</span></p>
+        <p class="precio-alt"
+           data-es="€20 EUR fuera de Chile"
+           data-en="$20.000 CLP in Chile">€20 EUR fuera de Chile</p>
         <div class="filas">
-          <div class="fila primera"><span class="k">Primera clase</span><span class="v">$10.000</span></div>
-          <div class="fila"><span class="k">Pack 4 horas, pago anticipado</span><span class="v">$65.000</span></div>
+          <div class="fila primera">
+            <span class="k" data-es="Primera clase" data-en="First class">Primera clase</span>
+            <span class="v" data-es="$10.000<span class='alt'>€10</span>" data-en="€10<span class='alt'>$10.000</span>">$10.000<span class="alt">€10</span></span>
+          </div>
+          <div class="fila">
+            <span class="k" data-es="Pack 4 horas, pago anticipado" data-en="4-hour pack, paid in advance">Pack 4 horas, pago anticipado</span>
+            <span class="v" data-es="$65.000<span class='alt'>€65</span>" data-en="€65<span class='alt'>$65.000</span>">$65.000<span class="alt">€65</span></span>
+          </div>
         </div>
-        <p class="grupal-title">Clases grupales · por persona, por hora</p>
+        <p class="grupal-title" data-es="Clases grupales · por persona, por hora" data-en="Group classes · per person, per hour">Clases grupales · por persona, por hora</p>
         <div class="filas">
-          <div class="fila"><span class="k">2 personas</span><span class="v">$15.000</span></div>
-          <div class="fila"><span class="k">3 o 4 personas</span><span class="v">$12.000</span></div>
-          <div class="fila"><span class="k">5 o más</span><span class="v">$10.000</span></div>
+          <div class="fila">
+            <span class="k" data-es="2 personas" data-en="2 people">2 personas</span>
+            <span class="v" data-es="$15.000<span class='alt'>€15</span>" data-en="€15<span class='alt'>$15.000</span>">$15.000<span class="alt">€15</span></span>
+          </div>
+          <div class="fila">
+            <span class="k" data-es="3 o 4 personas" data-en="3 or 4 people">3 o 4 personas</span>
+            <span class="v" data-es="$12.000<span class='alt'>€12</span>" data-en="€12<span class='alt'>$12.000</span>">$12.000<span class="alt">€12</span></span>
+          </div>
+          <div class="fila">
+            <span class="k" data-es="5 o más" data-en="5 or more">5 o más</span>
+            <span class="v" data-es="$10.000<span class='alt'>€10</span>" data-en="€10<span class='alt'>$10.000</span>">$10.000<span class="alt">€10</span></span>
+          </div>
         </div>
       </article>
 
       <article class="plan">
-        <h3>Enseñanza media</h3>
-        <p class="sub">Individual, por hora</p>
-        <p class="precio-hora">$15.000 <span>CLP</span></p>
+        <h3 data-es="Enseñanza media" data-en="High school">Enseñanza media</h3>
+        <p class="sub" data-es="Individual, por hora" data-en="One-to-one, per hour">Individual, por hora</p>
+        <p class="precio-hora"
+           data-es="$15.000 <span>CLP</span>"
+           data-en="€15 <span>EUR</span>">$15.000 <span>CLP</span></p>
+        <p class="precio-alt"
+           data-es="€15 EUR fuera de Chile"
+           data-en="$15.000 CLP in Chile">€15 EUR fuera de Chile</p>
         <div class="filas">
-          <div class="fila primera"><span class="k">Primera clase</span><span class="v">$7.500</span></div>
-          <div class="fila"><span class="k">Pack 4 horas, pago anticipado</span><span class="v">$50.000</span></div>
+          <div class="fila primera">
+            <span class="k" data-es="Primera clase" data-en="First class">Primera clase</span>
+            <span class="v" data-es="$7.500<span class='alt'>€7.50</span>" data-en="€7.50<span class='alt'>$7.500</span>">$7.500<span class="alt">€7.50</span></span>
+          </div>
+          <div class="fila">
+            <span class="k" data-es="Pack 4 horas, pago anticipado" data-en="4-hour pack, paid in advance">Pack 4 horas, pago anticipado</span>
+            <span class="v" data-es="$50.000<span class='alt'>€50</span>" data-en="€50<span class='alt'>$50.000</span>">$50.000<span class="alt">€50</span></span>
+          </div>
         </div>
-        <p class="grupal-title">Clases grupales · por persona, por hora</p>
+        <p class="grupal-title" data-es="Clases grupales · por persona, por hora" data-en="Group classes · per person, per hour">Clases grupales · por persona, por hora</p>
         <div class="filas">
-          <div class="fila"><span class="k">2 personas</span><span class="v">$11.000</span></div>
-          <div class="fila"><span class="k">3 o 4 personas</span><span class="v">$9.000</span></div>
-          <div class="fila"><span class="k">5 o más</span><span class="v">$7.500</span></div>
+          <div class="fila">
+            <span class="k" data-es="2 personas" data-en="2 people">2 personas</span>
+            <span class="v" data-es="$11.000<span class='alt'>€11</span>" data-en="€11<span class='alt'>$11.000</span>">$11.000<span class="alt">€11</span></span>
+          </div>
+          <div class="fila">
+            <span class="k" data-es="3 o 4 personas" data-en="3 or 4 people">3 o 4 personas</span>
+            <span class="v" data-es="$9.000<span class='alt'>€9</span>" data-en="€9<span class='alt'>$9.000</span>">$9.000<span class="alt">€9</span></span>
+          </div>
+          <div class="fila">
+            <span class="k" data-es="5 o más" data-en="5 or more">5 o más</span>
+            <span class="v" data-es="$7.500<span class='alt'>€7.50</span>" data-en="€7.50<span class='alt'>$7.500</span>">$7.500<span class="alt">€7.50</span></span>
+          </div>
         </div>
       </article>
 
       <article class="plan">
-        <h3>Enseñanza básica</h3>
-        <p class="sub">Individual, por hora</p>
-        <p class="precio-hora">$12.000 <span>CLP</span></p>
+        <h3 data-es="Enseñanza básica" data-en="Primary school">Enseñanza básica</h3>
+        <p class="sub" data-es="Individual, por hora" data-en="One-to-one, per hour">Individual, por hora</p>
+        <p class="precio-hora"
+           data-es="$12.000 <span>CLP</span>"
+           data-en="€12 <span>EUR</span>">$12.000 <span>CLP</span></p>
+        <p class="precio-alt"
+           data-es="€12 EUR fuera de Chile"
+           data-en="$12.000 CLP in Chile">€12 EUR fuera de Chile</p>
         <div class="filas">
-          <div class="fila primera"><span class="k">Primera clase</span><span class="v">$6.000</span></div>
-          <div class="fila"><span class="k">Pack 4 horas, pago anticipado</span><span class="v">$40.000</span></div>
+          <div class="fila primera">
+            <span class="k" data-es="Primera clase" data-en="First class">Primera clase</span>
+            <span class="v" data-es="$6.000<span class='alt'>€6</span>" data-en="€6<span class='alt'>$6.000</span>">$6.000<span class="alt">€6</span></span>
+          </div>
+          <div class="fila">
+            <span class="k" data-es="Pack 4 horas, pago anticipado" data-en="4-hour pack, paid in advance">Pack 4 horas, pago anticipado</span>
+            <span class="v" data-es="$40.000<span class='alt'>€40</span>" data-en="€40<span class='alt'>$40.000</span>">$40.000<span class="alt">€40</span></span>
+          </div>
         </div>
-        <p class="grupal-title">Clases grupales · por persona, por hora</p>
+        <p class="grupal-title" data-es="Clases grupales · por persona, por hora" data-en="Group classes · per person, per hour">Clases grupales · por persona, por hora</p>
         <div class="filas">
-          <div class="fila"><span class="k">2 personas</span><span class="v">$9.000</span></div>
-          <div class="fila"><span class="k">3 o 4 personas</span><span class="v">$7.000</span></div>
-          <div class="fila"><span class="k">5 o más</span><span class="v">$6.000</span></div>
+          <div class="fila">
+            <span class="k" data-es="2 personas" data-en="2 people">2 personas</span>
+            <span class="v" data-es="$9.000<span class='alt'>€9</span>" data-en="€9<span class='alt'>$9.000</span>">$9.000<span class="alt">€9</span></span>
+          </div>
+          <div class="fila">
+            <span class="k" data-es="3 o 4 personas" data-en="3 or 4 people">3 o 4 personas</span>
+            <span class="v" data-es="$7.000<span class='alt'>€7</span>" data-en="€7<span class='alt'>$7.000</span>">$7.000<span class="alt">€7</span></span>
+          </div>
+          <div class="fila">
+            <span class="k" data-es="5 o más" data-en="5 or more">5 o más</span>
+            <span class="v" data-es="$6.000<span class='alt'>€6</span>" data-en="€6<span class='alt'>$6.000</span>">$6.000<span class="alt">€6</span></span>
+          </div>
         </div>
       </article>
 
     </div>
 
-    <p class="nota">Valores en pesos chilenos. El pack de 4 horas se paga por adelantado y se usa cuando quieras. Para grupos armados entre compañeros, el precio es por persona. <strong>Pago vía transferencia bancaria</strong>.</p>
+    <p class="nota"
+       data-es="Los valores en pesos chilenos son para Chile y los de euros para el extranjero. El pack de 4 horas se paga por adelantado y se usa cuando quieras. Para grupos armados entre compañeros, el precio es por persona. <strong>Pago vía transferencia bancaria</strong>. Si estás fuera de Chile, cambia el idioma a inglés y los euros pasan a ser el valor principal."
+       data-en="Prices in euros, for students outside Chile; in Chile the equivalent in Chilean pesos applies. The 4-hour pack is paid in advance and used whenever you like. For groups you put together with classmates, the price is per person. <strong>Payment by bank transfer</strong>.">Los valores en pesos chilenos son para Chile y los de euros para el extranjero. El pack de 4 horas se paga por adelantado y se usa cuando quieras. Para grupos armados entre compañeros, el precio es por persona. <strong>Pago vía transferencia bancaria</strong>. Si estás fuera de Chile, cambia el idioma a inglés y los euros pasan a ser el valor principal.</p>
   </section>
 
   <section>
-    <p class="eyebrow">Cómo funciona</p>
-    <h2>De la consulta a la clase</h2>
+    <p class="eyebrow" data-es="Cómo funciona" data-en="How it works">Cómo funciona</p>
+    <h2 data-es="De la consulta a la clase" data-en="From first message to first class">De la consulta a la clase</h2>
     <ol class="pasos">
       <li>
-        <h3>¿Qué necesitas?</h3>
-        <p>Me cuentas cual es la materia en cuestión y tus objetivos.</p>
+        <h3 data-es="¿Qué necesitas?" data-en="What do you need?">¿Qué necesitas?</h3>
+        <p data-es="Me cuentas cual es la materia en cuestión y tus objetivos."
+           data-en="You tell me which subject it is and what you want to achieve.">Me cuentas cual es la materia en cuestión y tus objetivos.</p>
       </li>
       <li>
-        <h3>Agendamos el horario</h3>
-        <p>Coordinamos día y hora por WhatsApp, incluso con poca anticipación.</p>
+        <h3 data-es="Agendamos el horario" data-en="We set a time">Agendamos el horario</h3>
+        <p data-es="Coordinamos día y hora por WhatsApp, incluso con poca anticipación."
+           data-en="We agree on a day and time over WhatsApp, even at short notice.">Coordinamos día y hora por WhatsApp, incluso con poca anticipación.</p>
       </li>
       <li>
-        <h3>Clase por videollamada</h3>
-        <p>Con pizarra digital compartida.</p>
+        <h3 data-es="Clase por videollamada" data-en="Class by video call">Clase por videollamada</h3>
+        <p data-es="Con pizarra digital compartida." data-en="With a shared digital whiteboard.">Con pizarra digital compartida.</p>
       </li>
       <li>
-        <h3>Te quedan los apuntes</h3>
-        <p>Al terminar te mando la pizarra de la clase, ejercicios para practicar y material teórico.</p>
+        <h3 data-es="Te quedan los apuntes" data-en="You keep the notes">Te quedan los apuntes</h3>
+        <p data-es="Al terminar te mando la pizarra de la clase, ejercicios para practicar y material teórico."
+           data-en="Afterwards I send you the whiteboard from the class, practice problems and theory material.">Al terminar te mando la pizarra de la clase, ejercicios para practicar y material teórico.</p>
       </li>
-            <li>
-        <h3>Acompañamiento</h3>
-        <p>Seguimiento de tu estudio vía WhatsApp.</p>
+      <li>
+        <h3 data-es="Acompañamiento" data-en="Ongoing support">Acompañamiento</h3>
+        <p data-es="Seguimiento de tu estudio vía WhatsApp." data-en="Follow-up on your studying over WhatsApp.">Seguimiento de tu estudio vía WhatsApp.</p>
       </li>
     </ol>
   </section>
-<!-- ============================================================
-     SECCIÓN "RESERVAR CLASE"
-     Pegá TODO este bloque dentro de <div class="wrap">, justo
-     ANTES de la línea:   <section class="cierre">
 
-     Antes de subirlo, reemplazá las DOS apariciones de
-     TU-USUARIO/clase-1-hora  por tu link real de Cal.com
-     (lo ves en Cal.com > Event Types, debajo del nombre del evento).
-     ============================================================ -->
+  <!-- ============ RESERVA INDIVIDUAL ============ -->
+  <section id="reservar">
+    <p class="eyebrow" data-es="Reservar" data-en="Booking">Reservar</p>
+    <h2 data-es="Reserva de clase individual" data-en="Book a one-to-one class">Reserva de clase individual</h2>
+    <p class="section-note"
+       data-es="Elige el día y la hora que te acomode. El calendario muestra los horarios en la hora de tu ciudad y solo aparecen los bloques que tengo libres. Al reservar te llega la confirmación y el enlace de la videollamada por correo."
+       data-en="Pick the day and time that suits you. The calendar shows the times in your own time zone and only the slots I have free. Once you book, you get the confirmation and the video call link by email.">Elige el día y la hora que te acomode. El calendario muestra los horarios en la hora de tu ciudad y solo aparecen los bloques que tengo libres. Al reservar te llega la confirmación y el enlace de la videollamada por correo.</p>
 
-<style>
-  .reserva-caja {
-    background: var(--surface, #fff);
-    border: 1px solid var(--line, #345cc0);
-    border-radius: 6px;
-    padding: 10px;
-    overflow: hidden;
-  }
+    <div class="reserva-caja">
+      <div class="cal-caja" id="cal-inline"></div>
+    </div>
 
-  #cal-inline {
-    width: 100%;
-    min-height: 640px;
-    overflow: auto;
-  }
+    <noscript>
+      <p class="reserva-alt">
+        <a href="https://cal.com/mariano-vazquez-9d6qpa/60min" target="_blank" rel="noopener"
+           data-es="Abrir el calendario de reservas" data-en="Open the booking calendar">Abrir el calendario de reservas</a>
+      </p>
+    </noscript>
+  </section>
 
-  .reserva-alt {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 8px 16px;
-    margin-top: 18px;
-    font-size: .95rem;
-    color: var(--muted, #596a7a);
-  }
+  <!-- ============ RESERVA GRUPAL ============ -->
+  <section>
+    <p class="eyebrow" data-es="Reservar" data-en="Booking">Reservar</p>
+    <h2 data-es="Reserva de clase grupal" data-en="Book a group class">Reserva de clase grupal</h2>
+    <p class="section-note"
+       data-es="Una hora de clase para grupos de 2 o más, en videollamada. El precio es por persona y baja según cuántos sean. Reserva solo uno por el grupo y comparte después el enlace con los demás."
+       data-en="A one-hour class for groups of two or more, by video call. The price is per person and goes down with group size. Only one of you books, and then shares the link with the rest.">Una hora de clase para grupos de 2 o más, en videollamada. El precio es por persona y baja según cuántos sean. Reserva solo uno por el grupo y comparte después el enlace con los demás.</p>
 
-  .reserva-alt a {
-    color: var(--accent, #345cc0);
-    font-weight: 600;
-    text-underline-offset: 3px;
-  }
+    <div class="reserva-caja">
+      <div class="cal-caja" id="cal-grupal"></div>
+    </div>
 
-  @media (max-width: 640px) {
-    #cal-inline { min-height: 560px; }
-    .reserva-caja { padding: 4px; }
-  }
-</style>
+    <noscript>
+      <p class="reserva-alt">
+        <a href="https://cal.com/mariano-vazquez-9d6qpa/clase-grupal" target="_blank" rel="noopener"
+           data-es="Abrir el calendario de reservas" data-en="Open the booking calendar">Abrir el calendario de reservas</a>
+      </p>
+    </noscript>
+  </section>
 
-<section>
-  <p class="eyebrow">Reservar</p>
-  <h2>Reserva de clase individual</h2>
-  <p class="section-note">Elige el día y la hora que te acomode. El calendario muestra los horarios en la hora de tu ciudad y solo aparecen los bloques que tengo libres. Al reservar te llega la confirmación y el enlace de la videollamada por correo.</p>
+  <section class="cierre">
+    <h2 data-es="¿No encuentras un horario que te sirva?" data-en="Can't find a time that works?">¿No encuentras un horario que te sirva?</h2>
+    <p data-es="Escríbeme con el tema y la fecha de tu evaluación y coordinamos."
+       data-en="Message me with the topic and the date of your test and we'll sort something out.">Escríbeme con el tema y la fecha de tu evaluación y coordinamos.</p>
+    <div class="actions">
+      <a class="btn btn-primary" target="_blank" rel="noopener"
+         href="https://wa.me/56965284437?text=Hola%20Mariano%2C%20quiero%20consultar%20por%20clases%20particulares%20de%20matem%C3%A1tica."
+         data-href-es="https://wa.me/56965284437?text=Hola%20Mariano%2C%20quiero%20consultar%20por%20clases%20particulares%20de%20matem%C3%A1tica."
+         data-href-en="https://wa.me/56965284437?text=Hi%20Mariano%2C%20I%27d%20like%20to%20ask%20about%20private%20maths%20lessons.">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.83-.85 2.03s.87 2.35.99 2.51c.12.16 1.71 2.61 4.15 3.66.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+        +56 9 6528 4437
+      </a>
+      <a class="btn btn-ghost"
+         href="mailto:marianovazquezg3@gmail.com?subject=Consulta%20por%20clases%20particulares"
+         data-href-es="mailto:marianovazquezg3@gmail.com?subject=Consulta%20por%20clases%20particulares"
+         data-href-en="mailto:marianovazquezg3@gmail.com?subject=Private%20maths%20lessons">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm1.6 2L12 12.3 19.4 7H4.6ZM20 8.5l-7.4 5.3a1 1 0 0 1-1.2 0L4 8.5V17h16V8.5Z"/></svg>
+        marianovazquezg3@gmail.com
+      </a>
+    </div>
+  </section>
 
-  <div class="reserva-caja">
-    <div id="cal-inline"></div>
-  </div>
+  <footer
+    data-es="Mariano Vázquez · Clases particulares de matemática online · Chile y el extranjero (horario de Chile continental)."
+    data-en="Mariano Vázquez · Private maths tutoring online · Chile and abroad (times shown in your own time zone).">
+    Mariano Vázquez · Clases particulares de matemática online · Chile y el extranjero (horario de Chile continental).
+  </footer>
 
-  <noscript>
-    <p class="reserva-alt">
-      <a href="cal.com/mariano-vazquez-9d6qpa/60min" target="_blank" rel="noopener">Abrir el calendario de reservas</a>
-    </p>
-  </noscript>
-</section>
+</div>
 
+<!-- ============ Cal.com ============ -->
 <script type="text/javascript">
   (function (C, A, L) {
     let p = function (a, ar) { a.q.push(ar); };
@@ -832,118 +1056,92 @@
     };
   })(window, "https://app.cal.com/embed/embed.js", "init");
 
-  Cal("init", "clase", { origin: "https://app.cal.com" });
+  var CAL_COLORES = {
+    "cal-brand": "#345CC0",
+    "cal-brand-text": "#FFFFFF",
+    "cal-bg": "#EDDFD2",
+    "cal-bg-subtle": "#E6D7C8",
+    "cal-bg-emphasis": "#DECBB8",
+    "cal-bg-muted": "#F4EBE1",
+    "cal-text": "#101418",
+    "cal-text-emphasis": "#000000",
+    "cal-text-subtle": "#5B5248",
+    "cal-border": "#D6C6B6",
+    "cal-border-subtle": "#E0D2C4",
+    "cal-border-emphasis": "#345CC0",
+    "radius": "4px"
+  };
 
+  Cal("init", "clase", { origin: "https://app.cal.com" });
   Cal.ns.clase("inline", {
     elementOrSelector: "#cal-inline",
     calLink: "mariano-vazquez-9d6qpa/60min",
     config: { layout: "month_view", theme: "light" }
   });
+  Cal.ns.clase("ui", { hideEventTypeDetails: false, layout: "month_view", cssVarsPerTheme: { light: CAL_COLORES } });
 
-  Cal.ns.clase("ui", {
-    hideEventTypeDetails: false,
-    layout: "month_view",
-    cssVarsPerTheme: { light: { "cal-brand": "#345CC0" } }
-  });
-</script>
-
-<!-- ============================================================
-     SECCIÓN "RESERVAR CLASE"
-     Pegá TODO este bloque dentro de <div class="wrap">, justo
-     ANTES de la línea:   <section class="cierre">
-
-     Antes de subirlo, reemplazá las DOS apariciones de
-     TU-USUARIO/clase-1-hora  por tu link real de Cal.com
-     (lo ves en Cal.com > Event Types, debajo del nombre del evento).
-     ============================================================ -->
-
-<style>
-  .reserva-caja {
-    background: var(--surface, #fff);
-    border: 1px solid var(--line, #345cc0);
-    border-radius: 6px;
-    padding: 10px;
-    overflow: hidden;
-  }
-
-  #cal-inline {
-    width: 100%;
-    min-height: 640px;
-    overflow: auto;
-  }
-
-  .reserva-alt {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 8px 16px;
-    margin-top: 18px;
-    font-size: .95rem;
-    color: var(--muted, #596a7a);
-  }
-
-  .reserva-alt a {
-    color: var(--accent, #345cc0);
-    font-weight: 600;
-    text-underline-offset: 3px;
-  }
-
-  @media (max-width: 640px) {
-    #cal-inline { min-height: 560px; }
-    .reserva-caja { padding: 4px; }
-  }
-</style>
-
-<section>
-  <h2>Reserva de clase grupal</h2>
-  <p class="section-note">Una hora de clase para grupos de 2 o más, en videollamada. El precio es por persona y baja según cuántos sean. Reserva solo uno por el grupo y comparte después el enlace con los demás.</p>
-
-  <div class="reserva-caja">
-    <div id="cal-grupal"></div>
-  </div>
-
-  <noscript>
-    <p class="reserva-alt">
-      <a href="https://cal.com/mariano-vazquez-9d6qpa/clase-grupal" target="_blank" rel="noopener">Abrir el calendario de reservas</a>
-    </p>
-  </noscript>
-</section>
-
-<script type="text/javascript">
   Cal("init", "grupal", { origin: "https://app.cal.com" });
-
   Cal.ns.grupal("inline", {
     elementOrSelector: "#cal-grupal",
     calLink: "mariano-vazquez-9d6qpa/clase-grupal",
     config: { layout: "month_view", theme: "light" }
   });
-
-  Cal.ns.grupal("ui", {
-    hideEventTypeDetails: false,
-    layout: "month_view",
-    cssVarsPerTheme: { light: { "cal-brand": "#345CC0" } }
-  });
+  Cal.ns.grupal("ui", { hideEventTypeDetails: false, layout: "month_view", cssVarsPerTheme: { light: CAL_COLORES } });
 </script>
-  
-  <section class="cierre">
-    <h2>¿No encuentras un horario que te sirva?</h2>
-    <p>Escríbeme con el tema y la fecha de tu evaluación y coordinamos.</p>
-    <div class="actions">
-      <a class="btn btn-primary" href="https://wa.me/56965284437?text=Hola%20Mariano%2C%20quiero%20consultar%20por%20clases%20particulares%20de%20matem%C3%A1tica." target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.53.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.22.25-.85.83-.85 2.03s.87 2.35.99 2.51c.12.16 1.71 2.61 4.15 3.66.58.25 1.03.4 1.39.51.58.19 1.11.16 1.53.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
-        +56 9 6528 4437
-      </a>
-      <a class="btn btn-ghost" href="mailto:marianovazquezg3@gmail.com?subject=Consulta%20por%20clases%20particulares">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm1.6 2L12 12.3 19.4 7H4.6ZM20 8.5l-7.4 5.3a1 1 0 0 1-1.2 0L4 8.5V17h16V8.5Z"/></svg>
-        marianovazquezg3@gmail.com
-      </a>
-    </div>
-  </section>
 
-  <footer>
-    Mariano Vázquez · Clases particulares de matemática online · Chile y el extranjero (horario de Chile continental).
-  </footer>
+<!-- ============ Idioma ============ -->
+<script type="text/javascript">
+  (function () {
+    var TITULOS = {
+      es: "Matemática con Mariano",
+      en: "Maths with Mariano"
+    };
+    var DESCRIPCIONES = {
+      es: "Clases particulares de matemática online para universidad, enseñanza media y básica. Más de 10 años de experiencia.",
+      en: "Private maths tutoring online for university, high school and primary school. Over 10 years of experience."
+    };
 
-</div>
+    var textos = document.querySelectorAll("[data-es]");
+    var enlaces = document.querySelectorAll("[data-href-es]");
+    var botones = document.querySelectorAll(".lang-switch button");
+    var meta = document.querySelector('meta[name="description"]');
+
+    function aplicar(lang) {
+      document.documentElement.lang = lang;
+      document.title = TITULOS[lang];
+      if (meta) { meta.setAttribute("content", DESCRIPCIONES[lang]); }
+
+      for (var i = 0; i < textos.length; i++) {
+        var v = textos[i].getAttribute("data-" + lang);
+        if (v !== null) { textos[i].innerHTML = v; }
+      }
+      for (var j = 0; j < enlaces.length; j++) {
+        var h = enlaces[j].getAttribute("data-href-" + lang);
+        if (h !== null) { enlaces[j].setAttribute("href", h); }
+      }
+      for (var k = 0; k < botones.length; k++) {
+        botones[k].setAttribute("aria-pressed", botones[k].getAttribute("data-lang") === lang ? "true" : "false");
+      }
+      try { localStorage.setItem("lang", lang); } catch (e) {}
+    }
+
+    // Idioma inicial: el que eligió antes; si es su primera visita,
+    // español para navegadores en español e inglés para el resto.
+    var inicial = null;
+    try { inicial = localStorage.getItem("lang"); } catch (e) {}
+    if (inicial !== "es" && inicial !== "en") {
+      var nav = (navigator.language || "en").toLowerCase();
+      inicial = nav.indexOf("es") === 0 ? "es" : "en";
+    }
+
+    for (var b = 0; b < botones.length; b++) {
+      botones[b].addEventListener("click", function () {
+        aplicar(this.getAttribute("data-lang"));
+      });
+    }
+
+    aplicar(inicial);
+  })();
+</script>
 </body>
 </html>
